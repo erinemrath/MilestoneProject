@@ -71,8 +71,10 @@ app.vars = {}
 #name of key_file and key  with quandl api_key
 key_file = 'API_KEYS'
 key_name = 'quandl'
-app.vars['api_key'] = load_api_key(key_file, key_name)
-
+try:
+  app.vars['api_key'] = load_api_key(key_file, key_name)
+except Exception as e:
+  app.vars['api_key'] = os.environ['api_key']
 @app.route('/')
 def main():
   return redirect('/index')
